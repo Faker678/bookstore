@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>我的订单</title>
+<link type="text/css" rel="stylesheet" href="/static/css/style.css" >
+<style type="text/css">
+	h1 {
+		text-align: center;
+		margin-top: 200px;
+	}
+</style>
+</head>
+<body>
+	
+	<div id="header">
+			<img class="logo_img" alt="" src="/static/img/logo.gif" >
+			<span class="wel_word">我的订单</span>
+			<div>
+				<span>欢迎<span class="um_span">{{.UserName}}</span>光临尚硅谷书城</span>
+				<a href="/getMyOrder">我的订单</a>
+				<a href="/logout">注销</a>&nbsp;&nbsp;
+				<a href="/main">返回</a>
+			</div>
+	</div>
+	
+	<div id="main">
+		<table>
+			<tr>
+				<th>单号</th>
+				<th>日期</th>
+				<th>数量</th>
+				<th>金额</th>
+				<th>详情</th>
+				<th>发货</th>
+			</tr>		
+		{{range .Orders}}
+			<tr>
+				<td>{{.OrderID}}</td>
+				<td>{{.CreateTime}}</td>
+				<td>{{.TotalCount}}</td>
+				<td>{{.TotalAmount}}</td>
+				<td><a href="/getOrderInfo?orderId={{.OrderID}}">查看详情</a></td>
+				<td class="state">
+					{{if .SendComplate}}
+						<a href="/takeOrder?orderId={{.OrderID}}">确认收货</a>
+					{{end}}
+					{{if .NoSend}}
+						等待发货
+					{{end}}	
+					{{if .Complate}}
+						交易完成
+					{{end}}			
+				</td>
+			</tr>
+		{{end}}		
+		</table>
+	</div>
+	
+	<div id="bottom">
+		<span>
+			尚硅谷书城.Copyright &copy;2015
+		</span>
+	</div>
+</body>
+</html>
